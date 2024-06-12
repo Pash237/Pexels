@@ -7,10 +7,12 @@
 
 import SwiftUI
 
+@MainActor
 struct CuratedFeedScreen: View {
 	@State private var viewModel = CuratedFeedViewModel(service: CuratedFeedService(apiService: APIService()))
 
 	var body: some View {
+		let _ = print("\(viewModel.isLoading) \(viewModel.photos)")
 		ScrollView {
 			LazyVStack(spacing: 30) {
 				ForEach(viewModel.photos) { photo in

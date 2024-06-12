@@ -8,6 +8,7 @@
 import SwiftUI
 
 @Observable
+@MainActor
 final class CuratedFeedViewModel {
 	var photos: [Photo] = []
 	var isLoading = false
@@ -22,13 +23,13 @@ final class CuratedFeedViewModel {
 		self.nextPage = nextPage
 	}
 	
-	func reload() async {
+	@Sendable func reload() async {
 		photos = []
 		nextPage = 1
 		await loadNextPage()
 	}
 	
-	func loadNextPage() async {
+	@Sendable func loadNextPage() async {
 		error = nil
 		isLoading = true
 		guard let page = nextPage else { return }

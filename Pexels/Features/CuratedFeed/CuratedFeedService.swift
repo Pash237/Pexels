@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CuratedFeedServiceProtocol {
+protocol CuratedFeedServiceProtocol: Sendable {
 	func curatedPhotos(pageSize: Int, page: Int) async throws -> CuratedPhotosResponse
 }
 
