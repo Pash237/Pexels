@@ -23,7 +23,7 @@ struct Photo: Identifiable, Hashable {
 }
 
 extension Photo {
-	static let mock: Photo = Photo.mock(id: 0)
+	static let mock: Photo = Photo.mock(id: 2880507)
 	
 	static func mock(id: Int) -> Photo {
 		Photo(id: id,

@@ -7,9 +7,15 @@
 
 import Foundation
 
-struct CuratedFeedService {
+protocol CuratedFeedServiceProtocol {
+	func curatedPhotos(pageSize: Int, page: Int) async throws -> CuratedPhotosResponse
+}
+
+struct CuratedFeedService: CuratedFeedServiceProtocol {
+	let apiService: APIServiceProtocol
+	
 	func curatedPhotos(pageSize: Int = 3, page: Int = 1) async throws -> CuratedPhotosResponse {
-		try await APIService().get(
+		try await apiService.get(
 			method: "curated",
 			parameters: [
 				"page": page,
@@ -18,7 +24,7 @@ struct CuratedFeedService {
 	}
 }
 
-struct CuratedPhotosResponse: Decodable {
+struct CuratedPhotosResponse: Decodable, Equatable {
 	let photos: [Photo]
 	let nextPageUrl: URL?
 	

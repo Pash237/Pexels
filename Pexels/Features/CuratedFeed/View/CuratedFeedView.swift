@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CuratedFeedScreen: View {
-	@State private var viewModel = CuratedFeedViewModel()
+	@State private var viewModel = CuratedFeedViewModel(service: CuratedFeedService(apiService: APIService()))
 
 	var body: some View {
 		ScrollView {

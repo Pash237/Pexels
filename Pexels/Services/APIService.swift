@@ -8,7 +8,11 @@
 import Foundation
 import OSLog
 
-struct APIService {
+protocol APIServiceProtocol {
+	func get<Response: Decodable>(method: String, parameters: [String: CustomStringConvertible]) async throws -> Response
+}
+
+struct APIService: APIServiceProtocol {
 	private let baseURL = URL(string: "https://api.pexels.com/v1")!
 	// TODO: we probably should store API key somewhere outside of the repo
 	private let apiKey = "QQecfOrKp7vuyWQZ5ungSdMXHvgnK0YcXuNY6YSwIAG2LJul8K7ed1r1"
