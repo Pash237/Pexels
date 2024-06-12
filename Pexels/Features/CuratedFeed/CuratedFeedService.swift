@@ -63,7 +63,7 @@ extension Photo: Decodable {
 			name: try values.decode(String.self, forKey: .photographerName),
 			url: try values.decode(URL.self, forKey: .photographerUrl)
 		)
-		altText = try values.decode(String?.self, forKey: .alt)
+		altText = try? values.decode(String?.self, forKey: .alt)
 		
 		let imageUrls = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .imageUrls)
 		imageUrl = try imageUrls.decode(URL.self, forKey: .original)
