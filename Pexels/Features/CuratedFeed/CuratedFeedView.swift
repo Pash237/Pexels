@@ -24,6 +24,13 @@ struct CuratedFeedScreen: View {
 							}
 					}
 				}
+				if viewModel.isLoading {
+					FeedPhotoCell(photo: .mock)
+						.redacted(reason: .placeholder)
+				}
+				if let error = viewModel.error {
+					ErrorView(error: error)
+				}
 			}
 		}
 		.task(viewModel.loadNextPage)
