@@ -20,6 +20,11 @@ struct Photo: Identifiable, Hashable {
 	var aspectRatio: Double {
 		Double(width)/Double(height)
 	}
+	
+	enum Size {
+		case thumbnail
+		case full
+	}
 }
 
 extension Photo {

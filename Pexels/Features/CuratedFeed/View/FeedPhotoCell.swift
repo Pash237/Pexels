@@ -6,30 +6,36 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct PhotoAsyncImage: View {
-	let url: URL
+	let photo: Photo
+	let size: Photo.Size
 	
 	var body: some View {
-		Color.clear
-			.background {
-				AsyncImage(url: url) { phase in
-					if let image = phase.image {
-						image
-							.resizable()
-							.scaledToFill()
-					} else if let error = phase.error {
-						ErrorView(error: error)
-							.frame(maxWidth: .infinity, maxHeight: .infinity)
-							.background(Color.secondary.opacity(0.2))
-					} else {
-						ZStack {
-							Color.black.opacity(0.05)
-							ProgressView()
-						}
+		LazyImage(url: size == .full ? photo.imageUrl : photo.thumbnailUrl) { state in
+			if let image = state.image {
+				image
+					.resizable()
+					.scaledToFill()
+			} else if let error = state.error {
+				ErrorView(error: error)
+					.frame(maxWidth: .infinity, maxHeight: .infinity)
+					.background(Color.secondary.opacity(0.2))
+			} else {
+				if size == .full {
+					// use thumbnail as a placeholder while full photo is loading
+					PhotoAsyncImage(photo: photo, size: .thumbnail)
+				} else {
+					ZStack {
+						Color.black.opacity(0.05)
+						ProgressView()
 					}
 				}
 			}
+		}
+		.accessibilityLabel(photo.altText ?? "photo_generic_accessibility_label")
+		.accessibilityIdentifier("photo")
 	}
 }
 
@@ -43,7 +49,7 @@ struct FeedPhotoCell: View {
 			if redactionReasons.contains(.placeholder) {
 				Color.black.opacity(0.05).aspectRatio(2, contentMode: .fill)
 			} else {
-				PhotoAsyncImage(url: photo.thumbnailUrl)
+				PhotoAsyncImage(photo: photo, size: .thumbnail)
 					.aspectRatio(max(1/1.5, photo.aspectRatio), contentMode: .fill)
 					.clipped()
 			}

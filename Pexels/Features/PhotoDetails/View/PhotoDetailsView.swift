@@ -12,10 +12,8 @@ struct PhotoDetailsView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading) {
-			PhotoAsyncImage(url: photo.imageUrl)
+			PhotoAsyncImage(photo: photo, size: .full)
 				.aspectRatio(photo.aspectRatio, contentMode: .fit)
-				.accessibilityLabel(photo.altText ?? "photo_generic_accessibility_label")
-				.accessibilityIdentifier("photo")
 			
 			VStack(alignment: .leading) {
 				Text(photo.photographer.name)
