@@ -12,7 +12,7 @@ struct ErrorView: View {
 	
     var body: some View {
 		VStack {
-			Text("😔")
+			Text(verbatim: "😔")
 			Text(error.localizedDescription)
 				.multilineTextAlignment(.center)
 		}

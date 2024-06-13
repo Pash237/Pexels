@@ -39,7 +39,7 @@ struct CuratedFeedScreen: View {
 		.navigationDestination(for: Photo.self) {
 			PhotoDetailsView(photo: $0)
 		}
-		.navigationTitle("Curated Photos")
+		.navigationTitle("curated_photos_title")
 	}
 }
 

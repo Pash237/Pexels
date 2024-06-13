@@ -1,0 +1,20 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "curated_photos_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Curated Photos"
+          }
+        }
+      }
+    },
+    "photo_generic_accessibility_label" : {
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}
