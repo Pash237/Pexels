@@ -48,3 +48,10 @@ struct CuratedFeedScreen: View {
 		CuratedFeedScreen()
 	}
 }
+
+#Preview("RTL") {
+	NavigationStack {
+		CuratedFeedScreen()
+	}
+	.environment(\.layoutDirection, .rightToLeft)
+}
