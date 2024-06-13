@@ -46,7 +46,6 @@ struct FeedPhotoCell: View {
 				PhotoAsyncImage(url: photo.thumbnailUrl)
 					.aspectRatio(max(1/1.5, photo.aspectRatio), contentMode: .fill)
 					.clipped()
-					.accessibilityLabel(photo.altText ?? String(localized: "photo_generic_accessibility_label"))
 			}
 			
 			Rectangle()
@@ -55,10 +54,14 @@ struct FeedPhotoCell: View {
 			Text(photo.photographer.name)
 				.foregroundStyle(.white)
 				.padding()
+				.accessibilityIdentifier("photographer_name")
 		}
 		.clipShape(.rect(cornerRadius: 8))
 		.padding(.horizontal)
 		.shadow(color: .black.opacity(0.2), radius: 20)
+		.accessibilityElement(children: .combine)
+		.accessibilityLabel(photo.altText ?? String(localized: "photo_generic_accessibility_label"))
+		.accessibilityIdentifier("photo_cell")
 	}
 }
 

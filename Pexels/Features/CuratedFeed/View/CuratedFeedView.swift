@@ -55,3 +55,10 @@ struct CuratedFeedScreen: View {
 	}
 	.environment(\.layoutDirection, .rightToLeft)
 }
+
+#Preview("Dynamic type") {
+	NavigationStack {
+		CuratedFeedScreen()
+	}
+	.environment(\.sizeCategory, .accessibilityLarge)
+}

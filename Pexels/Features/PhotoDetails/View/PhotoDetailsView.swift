@@ -12,12 +12,14 @@ struct PhotoDetailsView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading) {
-			PhotoAsyncImage(url: photo.thumbnailUrl)
+			PhotoAsyncImage(url: photo.imageUrl)
 				.aspectRatio(photo.aspectRatio, contentMode: .fit)
 				.accessibilityLabel(photo.altText ?? "photo_generic_accessibility_label")
+				.accessibilityIdentifier("photo")
 			
 			VStack(alignment: .leading) {
 				Text(photo.photographer.name)
+					.accessibilityIdentifier("photographer_name")
 				if let altText = photo.altText {
 					Text(altText)
 						.foregroundStyle(.secondary)
