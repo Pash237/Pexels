@@ -130,6 +130,7 @@ final class CuratedFeedTests: XCTestCase {
 		XCTAssertEqual(actualResponse, expectedResponse)
 	}
 	
+	@MainActor
 	func testCuratedFeedViewModelPaginate() async {
 		let viewModel = CuratedFeedViewModel(service: CuratedFeedServiceMock())
 		await viewModel.loadNextPage()
@@ -138,6 +139,7 @@ final class CuratedFeedTests: XCTestCase {
 		XCTAssertEqual(viewModel.photos.count, 6)
 	}
 	
+	@MainActor
 	func testCuratedFeedViewModelNoPagesLeft() async {
 		let feedService = CuratedFeedServiceMock()
 		let viewModel = CuratedFeedViewModel(service: feedService)
@@ -150,6 +152,7 @@ final class CuratedFeedTests: XCTestCase {
 		XCTAssertEqual(viewModel.photos.count, 6)
 	}
 	
+	@MainActor
 	func testCuratedFeedViewModelError() async {
 		let feedService = CuratedFeedServiceMock()
 		feedService.thrownError = URLError(.badServerResponse)
@@ -159,13 +162,13 @@ final class CuratedFeedTests: XCTestCase {
 	}
 }
 
-class APIServiceCuratedPhotosMock: APIServiceProtocol {
+class APIServiceCuratedPhotosMock: APIServiceProtocol, @unchecked Sendable {
 	func get<Response: Decodable>(method: String, parameters: [String : any CustomStringConvertible]) async throws -> Response {
 		return CuratedPhotosResponse(photos: [.mock], nextPageUrl: nil) as! Response
 	}
 }
 
-class CuratedFeedServiceMock: CuratedFeedServiceProtocol {
+class CuratedFeedServiceMock: CuratedFeedServiceProtocol, @unchecked Sendable {
 	var nextPageUrl: URL? = URL(string: "https://next.page")
 	var thrownError: Error?
 	func curatedPhotos(pageSize: Int, page: Int) async throws -> CuratedPhotosResponse {
