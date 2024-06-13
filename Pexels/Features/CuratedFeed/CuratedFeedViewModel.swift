@@ -26,14 +26,15 @@ final class CuratedFeedViewModel {
 	@Sendable func reload() async {
 		photos = []
 		nextPage = 1
+		error = nil
 		await loadNextPage()
 	}
 	
 	@Sendable func loadNextPage() async {
+		guard let page = nextPage, error == nil, !isLoading else { return }
+		
 		error = nil
 		isLoading = true
-		guard let page = nextPage else { return }
-		
 		do {
 			let response = try await service.curatedPhotos(pageSize: pageSize, page: page)
 			// manually avoid repeating photos in the feed — page index addressing has no prevention of that
@@ -41,8 +42,8 @@ final class CuratedFeedViewModel {
 			nextPage = response.hasMore ? page + 1 : nil
 			isLoading = false
 		} catch {
-			print("\(error)")
 			self.error = error
+			self.isLoading = false
 		}
 	}
 }

@@ -19,14 +19,14 @@ struct PhotoAsyncImage: View {
 							.resizable()
 							.scaledToFill()
 					} else if let error = phase.error {
-						VStack {
-							Text("😔")
-							Text(error.localizedDescription)
-						}
-						.frame(maxWidth: .infinity, maxHeight: .infinity)
-						.background(Color.secondary.opacity(0.2))
+						ErrorView(error: error)
+							.frame(maxWidth: .infinity, maxHeight: .infinity)
+							.background(Color.secondary.opacity(0.2))
 					} else {
-						ProgressView()
+						ZStack {
+							Color.black.opacity(0.05)
+							ProgressView()
+						}
 					}
 				}
 			}
@@ -36,12 +36,18 @@ struct PhotoAsyncImage: View {
 struct FeedPhotoCell: View {
 	let photo: Photo
 	
+	@Environment(\.redactionReasons) private var redactionReasons
+	
 	var body: some View {
 		ZStack(alignment: .bottomLeading) {
-			PhotoAsyncImage(url: photo.thumbnailUrl)
-				.aspectRatio(max(1/1.5, photo.aspectRatio), contentMode: .fill)
-				.clipped()
-				.accessibilityLabel(photo.altText ?? "Photo")
+			if redactionReasons.contains(.placeholder) {
+				Color.black.opacity(0.05).aspectRatio(2, contentMode: .fill)
+			} else {
+				PhotoAsyncImage(url: photo.thumbnailUrl)
+					.aspectRatio(max(1/1.5, photo.aspectRatio), contentMode: .fill)
+					.clipped()
+					.accessibilityLabel(photo.altText ?? String(localized: "photo_generic_accessibility_label"))
+			}
 			
 			Rectangle()
 				.fill(Gradient(colors: [.black.opacity(0), .black.opacity(0.4)]))

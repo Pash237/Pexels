@@ -16,6 +16,7 @@ struct ErrorView: View {
 			Text(error.localizedDescription)
 				.multilineTextAlignment(.center)
 		}
+		.frame(minHeight: 150)
     }
 }
 
