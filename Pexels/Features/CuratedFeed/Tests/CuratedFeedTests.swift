@@ -27,7 +27,7 @@ final class CuratedFeedTests: XCTestCase {
 		"avg_color": "#7E7F7B",
 		"src": {
 		  "original": "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg",
-		  "large2x": "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+		  "medium": "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&cs=tinysrgb&h=350",
 		},
 		"alt": "Brown Rocks During Golden Hour"
 	}
@@ -53,7 +53,7 @@ final class CuratedFeedTests: XCTestCase {
 			 "avg_color": "#7E7F7B",
 			 "src": {
 			   "original": "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg",
-			   "large2x": "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+			   "medium": "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&cs=tinysrgb&h=350",
 			 },
 			 "liked": false
 		}
@@ -66,7 +66,7 @@ final class CuratedFeedTests: XCTestCase {
 								  width: 4000,
 								  height: 6000,
 								  imageUrl: URL(string: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg")!,
-								  thumbnailUrl: URL(string: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")!,
+								  thumbnailUrl: URL(string: "https://images.pexels.com/photos/2880507/pexels-photo-2880507.jpeg?auto=compress&cs=tinysrgb&h=350")!,
 								  altText: nil,
 								  photographer: expectedPhotographer)
 		
@@ -102,7 +102,6 @@ final class CuratedFeedTests: XCTestCase {
 		"""
 		let expectedResponse = CuratedPhotosResponse(photos: [.mock], nextPageUrl: URL(string: "https://api.pexels.com/v1/curated/?page=2&per_page=1"))
 		let actualResponse = try decoder.decode(CuratedPhotosResponse.self, from: json.data(using: .utf8)!)
-//		let feedService = CuratedFeedService(apiService: APIServiceCuratedPhotosMock())
 		
 		XCTAssertEqual(actualResponse, expectedResponse)
 		XCTAssertTrue(actualResponse.hasMore)

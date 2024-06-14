@@ -50,7 +50,7 @@ extension Photo: Decodable {
 		case alt
 		
 		case original
-		case large2x
+		case medium
 	}
 	
 	init(from decoder: Decoder) throws {
@@ -67,6 +67,6 @@ extension Photo: Decodable {
 		
 		let imageUrls = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .imageUrls)
 		imageUrl = try imageUrls.decode(URL.self, forKey: .original)
-		thumbnailUrl = (try? imageUrls.decode(URL.self, forKey: .large2x)) ?? imageUrl
+		thumbnailUrl = (try? imageUrls.decode(URL.self, forKey: .medium)) ?? imageUrl
 	}
 }

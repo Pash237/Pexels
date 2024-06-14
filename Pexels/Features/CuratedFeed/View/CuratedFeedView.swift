@@ -13,7 +13,7 @@ struct CuratedFeedScreen: View {
 
 	var body: some View {
 		ScrollView {
-			LazyVStack(spacing: 30) {
+			LazyVGrid(columns: Array(repeating: .init(), count: 2)) {
 				ForEach(viewModel.photos) { photo in
 					NavigationLink(value: photo) {
 						FeedPhotoCell(photo: photo)
@@ -26,13 +26,15 @@ struct CuratedFeedScreen: View {
 					}
 				}
 				if viewModel.isLoading {
-					FeedPhotoCell(photo: .mock)
+					FeedPhotoCell(photo: .placeholder)
 						.redacted(reason: .placeholder)
 				}
 				if let error = viewModel.error {
 					ErrorView(error: error)
 				}
 			}
+			.padding(.horizontal)
+		}
 		}
 		.task(viewModel.loadNextPage)
 		.refreshable(action: viewModel.reload)
