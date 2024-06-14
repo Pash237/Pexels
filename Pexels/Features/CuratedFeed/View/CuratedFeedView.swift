@@ -17,10 +17,12 @@ struct CuratedFeedScreen: View {
 				ForEach(viewModel.photos) { photo in
 					NavigationLink(value: photo) {
 						FeedPhotoCell(photo: photo)
-							.task {
-								let isLast = photo.id == viewModel.photos.last?.id
-								if isLast {
-									await viewModel.loadNextPage()
+							.onAppear {
+								Task {
+									let isLast = photo.id == viewModel.photos.last?.id
+									if isLast {
+										await viewModel.loadNextPage()
+									}
 								}
 							}
 					}
@@ -35,8 +37,11 @@ struct CuratedFeedScreen: View {
 			}
 			.padding(.horizontal)
 		}
+		.onAppear {
+			Task {
+				await viewModel.loadNextPage()
+			}
 		}
-		.task(viewModel.loadNextPage)
 		.refreshable(action: viewModel.reload)
 		.navigationDestination(for: Photo.self) {
 			PhotoDetailsView(photo: $0)
