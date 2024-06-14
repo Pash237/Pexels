@@ -7,9 +7,19 @@
 
 import SwiftUI
 
+@MainActor
+protocol CuratedFeedViewModelProtocol: Sendable {
+	var photos: [Photo] { get }
+	var isLoading: Bool { get }
+	var error: Error? { get }
+	
+	@Sendable func reload() async
+	@Sendable func loadNextPage() async
+}
+
 @Observable
 @MainActor
-final class CuratedFeedViewModel {
+final class CuratedFeedViewModel: CuratedFeedViewModelProtocol {
 	var photos: [Photo] = []
 	var isLoading = false
 	var error: Error?
@@ -42,7 +52,9 @@ final class CuratedFeedViewModel {
 			nextPage = response.hasMore ? page + 1 : nil
 			isLoading = false
 		} catch {
-			self.error = error
+			if photos.isEmpty {
+				self.error = error
+			}
 			self.isLoading = false
 		}
 	}

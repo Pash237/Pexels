@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct CuratedFeedScreen: View {
-	@State private var viewModel = CuratedFeedViewModel(service: CuratedFeedService(apiService: APIService()))
+	let viewModel: CuratedFeedViewModelProtocol
 
 	var body: some View {
 		ScrollView {
@@ -28,8 +28,10 @@ struct CuratedFeedScreen: View {
 					}
 				}
 				if viewModel.isLoading {
-					FeedPhotoCell(photo: .placeholder)
-						.redacted(reason: .placeholder)
+					ForEach(0..<6) {
+						FeedPhotoCell(photo: .mock(id: $0))
+					}
+					.redacted(reason: .placeholder)
 				}
 				if let error = viewModel.error {
 					ErrorView(error: error)
@@ -52,20 +54,32 @@ struct CuratedFeedScreen: View {
 
 #Preview {
 	NavigationStack {
-		CuratedFeedScreen()
+		CuratedFeedScreen(viewModel: CuratedFeedViewModelMock())
 	}
 }
 
 #Preview("RTL") {
 	NavigationStack {
-		CuratedFeedScreen()
+		CuratedFeedScreen(viewModel: CuratedFeedViewModelMock())
 	}
 	.environment(\.layoutDirection, .rightToLeft)
 }
 
 #Preview("Dynamic type") {
 	NavigationStack {
-		CuratedFeedScreen()
+		CuratedFeedScreen(viewModel: CuratedFeedViewModelMock())
 	}
 	.environment(\.sizeCategory, .accessibilityLarge)
+}
+
+#Preview("Loading") {
+	NavigationStack {
+		let viewModel: CuratedFeedViewModelMock = {
+			let viewModel = CuratedFeedViewModelMock()
+			viewModel.photos = []
+			viewModel.isLoading = true
+			return viewModel
+		}()
+		CuratedFeedScreen(viewModel: viewModel)
+	}
 }

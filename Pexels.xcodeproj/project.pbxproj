@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F729E9452C1CE58F00270688 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F729E9442C1CE58F00270688 /* Mocks.swift */; };
 		F7470BE32C134CE0002851CC /* PexelsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7470BE22C134CE0002851CC /* PexelsApp.swift */; };
 		F7470BE52C134CE0002851CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7470BE42C134CE0002851CC /* ContentView.swift */; };
 		F7470BE72C134CE1002851CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7470BE62C134CE1002851CC /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F729E9442C1CE58F00270688 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		F7470BDF2C134CE0002851CC /* Pexels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pexels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7470BE22C134CE0002851CC /* PexelsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PexelsApp.swift; sourceTree = "<group>"; };
 		F7470BE42C134CE0002851CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				F7470C282C179A86002851CC /* View */,
 				F7470C182C139B86002851CC /* CuratedFeedService.swift */,
 				F7470C1C2C139DAA002851CC /* CuratedFeedViewModel.swift */,
+				F729E9442C1CE58F00270688 /* Mocks.swift */,
 			);
 			path = CuratedFeed;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				F7470C0F2C137282002851CC /* Photo.swift in Sources */,
 				F7470BE52C134CE0002851CC /* ContentView.swift in Sources */,
 				F7470C1B2C139D7A002851CC /* CuratedFeedView.swift in Sources */,
+				F729E9452C1CE58F00270688 /* Mocks.swift in Sources */,
 				F7470C1F2C139F58002851CC /* FeedPhotoCell.swift in Sources */,
 				F7470C112C139816002851CC /* Photographer.swift in Sources */,
 				F7470C2F2C1A583E002851CC /* ErrorView.swift in Sources */,

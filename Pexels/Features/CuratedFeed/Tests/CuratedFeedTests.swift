@@ -160,21 +160,3 @@ final class CuratedFeedTests: XCTestCase {
 		XCTAssertNotNil(viewModel.error)
 	}
 }
-
-class APIServiceCuratedPhotosMock: APIServiceProtocol, @unchecked Sendable {
-	func get<Response: Decodable>(method: String, parameters: [String : any CustomStringConvertible]) async throws -> Response {
-		return CuratedPhotosResponse(photos: [.mock], nextPageUrl: nil) as! Response
-	}
-}
-
-class CuratedFeedServiceMock: CuratedFeedServiceProtocol, @unchecked Sendable {
-	var nextPageUrl: URL? = URL(string: "https://next.page")
-	var thrownError: Error?
-	func curatedPhotos(pageSize: Int, page: Int) async throws -> CuratedPhotosResponse {
-		if let thrownError {
-			throw thrownError
-		}
-		return CuratedPhotosResponse(photos: (0..<pageSize).map { .mock(id: page * pageSize + $0) },
-									 nextPageUrl: nextPageUrl)
-	}
-}

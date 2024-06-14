@@ -7,10 +7,13 @@
 
 import SwiftUI
 
+@MainActor
 struct ContentView: View {
+	@State private var curatedFeedViewModel = CuratedFeedViewModel(service: CuratedFeedService(apiService: APIService()))
+
     var body: some View {
 		NavigationStack {
-			CuratedFeedScreen()
+			CuratedFeedScreen(viewModel: curatedFeedViewModel)
 		}
     }
 }
